@@ -10,6 +10,14 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+
+  methods:{
+    async loadImg(){
+      const res = await fetch(`https://api.unsplash.com/search/photos/?query='auckland'&per_page=9&client_id=${process.env.VUE_APP_API_KEY}`);
+      const results = await res.json();
+      console.log(results);
+    }
   }
 }
 </script>
