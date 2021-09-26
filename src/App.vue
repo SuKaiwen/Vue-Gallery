@@ -30,7 +30,8 @@ export default {
     async loadImg(){
       const res = await fetch(`https://api.unsplash.com/search/photos/?query='auckland'&per_page=9&client_id=${process.env.VUE_APP_API_KEY}`);
       const results = await res.json();
-      this.photos.photoArray = results.results;
+      const sorted = results.results.sort((a, b) => (a.height/a.width) > (b.height/b.width) ? -1: 1);
+      this.photos.photoArray = sorted;
       console.log(this.photos.photoArray);
     }
   }
