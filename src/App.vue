@@ -1,22 +1,37 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Body
+    :photoArray = "photos.photoArray"
+  />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Body from './components/Body.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Body
+  },
+
+  data(){
+    return{
+      photos:{
+        photoArray: [],
+      },
+
+      user:{
+        userArray: [],
+      }
+    }
   },
 
   methods:{
     async loadImg(){
       const res = await fetch(`https://api.unsplash.com/search/photos/?query='auckland'&per_page=9&client_id=${process.env.VUE_APP_API_KEY}`);
       const results = await res.json();
-      console.log(results);
+      this.photos.photoArray = results.results;
+      console.log(this.photos.photoArray);
     }
   }
 }
